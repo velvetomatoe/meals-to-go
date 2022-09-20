@@ -7,10 +7,11 @@ import { colors } from "../theme/colors";
 
 import { SafeArea } from "../../features/restaurants/components/utility/safe-area.component";
 
-import { RestaurantsScreen } from "../../features/restaurants/screens/restaurants.screen";
+import { RestaurantsNavigator } from "./restaurants.navigator";
+import { MapScreen } from "../../features/map/screens/map.screen";
 
 const TAB_ICON = {
-  Restaurants: {
+  RestaurantsTab: {
     focused: "restaurant",
     default: "restaurant-outline",
   },
@@ -31,11 +32,6 @@ const Settings = () => (
     <Text>Settings</Text>
   </SafeArea>
 );
-const Map = () => (
-  <SafeArea>
-    <Text>Map</Text>
-  </SafeArea>
-);
 
 const createScreenOptions = ({ route }) => {
   return {
@@ -50,14 +46,15 @@ const createScreenOptions = ({ route }) => {
     ),
     tabBarActiveTintColor: colors.brand.primary,
     tabBarInactiveTintColor: colors.text.disabled,
+    headerShown: false,
   };
 };
 
 export const AppNavigator = () => (
   <NavigationContainer>
     <Tab.Navigator screenOptions={createScreenOptions}>
-      <Tab.Screen name="Restaurants" component={RestaurantsScreen} />
-      <Tab.Screen name="Map" component={Map} />
+      <Tab.Screen name="RestaurantsTab" component={RestaurantsNavigator} />
+      <Tab.Screen name="Map" component={MapScreen} />
       <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   </NavigationContainer>
