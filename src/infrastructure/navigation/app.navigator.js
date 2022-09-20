@@ -5,7 +5,7 @@ import { Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { colors } from "../theme/colors";
 
-import { SafeArea } from "../../features/restaurants/components/utility/safe-area.component";
+import { SafeArea } from "../../components/utility/safe-area.component";
 
 import { RestaurantsNavigator } from "./restaurants.navigator";
 import { MapScreen } from "../../features/map/screens/map.screen";
