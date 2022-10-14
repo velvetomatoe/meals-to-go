@@ -1,37 +1,33 @@
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { Text } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+
 import { colors } from "../theme/colors";
 
-import { SafeArea } from "../../components/utility/safe-area.component";
-
 import { RestaurantsNavigator } from "./restaurants.navigator";
+import { SettingsNavigator } from "./settings.navigator";
 import { MapScreen } from "../../features/map/screens/map.screen";
+
+import { RestaurantsContextProvider } from "../../services/restaurants/restaurants.context";
+import { LocationContextProvider } from "../../services/location/location.context";
+import { FavoritesContextProvider } from "../../services/favorites/favorites.context";
 
 const TAB_ICON = {
   RestaurantsTab: {
     focused: "restaurant",
     default: "restaurant-outline",
   },
-  Map: {
+  MapTab: {
     focused: "ios-map",
     default: "ios-map-outline",
   },
-  Settings: {
+  SettingsTab: {
     focused: "settings",
     default: "settings-outline",
   },
 };
 
 const Tab = createBottomTabNavigator();
-
-const Settings = () => (
-  <SafeArea>
-    <Text>Settings</Text>
-  </SafeArea>
-);
 
 const createScreenOptions = ({ route }) => {
   return {
@@ -51,11 +47,15 @@ const createScreenOptions = ({ route }) => {
 };
 
 export const AppNavigator = () => (
-  <NavigationContainer>
-    <Tab.Navigator screenOptions={createScreenOptions}>
-      <Tab.Screen name="RestaurantsTab" component={RestaurantsNavigator} />
-      <Tab.Screen name="Map" component={MapScreen} />
-      <Tab.Screen name="Settings" component={Settings} />
-    </Tab.Navigator>
-  </NavigationContainer>
+  <FavoritesContextProvider>
+    <LocationContextProvider>
+      <RestaurantsContextProvider>
+        <Tab.Navigator screenOptions={createScreenOptions}>
+          <Tab.Screen name="RestaurantsTab" component={RestaurantsNavigator} />
+          <Tab.Screen name="MapTab" component={MapScreen} />
+          <Tab.Screen name="SettingsTab" component={SettingsNavigator} />
+        </Tab.Navigator>
+      </RestaurantsContextProvider>
+    </LocationContextProvider>
+  </FavoritesContextProvider>
 );
